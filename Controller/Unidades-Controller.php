@@ -1,7 +1,6 @@
 <?php
-require_once "../Model/Unidades-Model.php";
-require_once "../Service/Unidades-Service.php";
-
+require_once(__DIR__ . "/../Model/Unidades-Model.php");
+require_once(__DIR__ ."/../Service/Unidades-Service.php");
 
 class UnidadesController
 {
@@ -12,14 +11,13 @@ class UnidadesController
     {
         $this->conn = new Conexao();
         $this->conn = $this->conn->getinstance();
-        $this->unidaes = new unidades();
+        $this->unidades = new Unidades();
     }
 
-    public function registro($codigoUnidade, $descricaoUnidade)
+    public function registro($descricaoUnidade)
     {
 
-        $this->unidades->__set('codigoUndidade', $codigoUnidade)
-            ->__set('descricaoUnidade', $descricaoUnidade);
+        $this->unidades->__set('descricaoUnidade', $descricaoUnidade);
 
         $objS = new UnidadesService($this->conn, $this->unidades);
         return $objS->registro();
@@ -43,17 +41,17 @@ class UnidadesController
         return $tarefa['0'];
     }
 
-    public function buscaTodas()
+    public function buscaTodos()
     {
         $objS = new UnidadesService($this->conn, $this->unidades);
         return $objS->buscaTodos();
     }
 
-    public function deletaCodigo($codigoUnidade)
+    public function remover($codigoUnidade)
     {
         $this->unidades->__set('codigoUnidade', $codigoUnidade);
         $objS = new UnidadesService($this->conn, $this->unidades);
-        return $objS->deletaCodigo();
+        return $objS->remover();
     }
 
 }

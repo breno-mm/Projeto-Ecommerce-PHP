@@ -19,12 +19,11 @@ class CategoriasService
             INSERT INTO $this->table
             (codigoCategoria, nomeCategoria)
             VALUES
-            (?,?)
+            (?)
         ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(1, $this->categorias->__get('codigoCategoria'));
-        $stmt->bindValue(2, $this->categorias->__get('nomeCategoria'));
+        $stmt->bindValue(1, $this->categorias->__get('nomeCategoria'));
         $stmt->execute();
 
         $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -89,7 +88,7 @@ class CategoriasService
     }
 
     //Deleta categoria atraves do codigo
-    public function deletaCodigo()
+    public function remover()
     {
         $query = "
             DELETE FROM $this->table

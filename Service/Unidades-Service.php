@@ -17,14 +17,13 @@ class UnidadesService
     {
         $query = "
             INSERT INTO $this->table
-            (codigoUnidade, descricaoUnidade)
+            (descricaoUnidade)
             VALUES
-            (?,?)    
+            (?)    
         ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(1, $this->unidades->__get('codigounidade'));
-        $stmt->bindValue(2, $this->unidades->__get('descricaoUnidade'));
+        $stmt->bindValue(1, $this->unidades->__get('descricaoUnidade'));
         $stmt->execute();
 
         $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -90,7 +89,7 @@ class UnidadesService
     }
 
     //Deleta categoria atraves do codigo
-    public function deletaCodigo()
+    public function remover()
     {
         $query = "
             DELETE FROM $this->table

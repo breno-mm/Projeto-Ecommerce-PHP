@@ -8,7 +8,7 @@ class Unidades
 
     public function __get($atributo)
     {
-        require $this->$atributo;
+        return $this->$atributo;
     }
 
     public function __set($atributo, $valor)

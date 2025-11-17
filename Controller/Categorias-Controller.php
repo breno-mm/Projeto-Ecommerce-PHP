@@ -1,6 +1,6 @@
 <?php
-require_once "../Model/Categorias-Model.php";
-require_once "../Service/Catetegorias-Service.php";
+require_once(__DIR__."/../Model/Categorias-Model.php");
+require_once(__DIR__."/../Service/Catetegorias-Service.php");
 
 
 class CategoriasController
@@ -15,11 +15,10 @@ class CategoriasController
         $this->categorias = new categorias();
     }
 
-    public function registro($codigoCategoria, $nomeCategoria)
+    public function registro($nomeCategoria)
     {
 
-        $this->categorias->__set('codigoCategoria', $codigoCategoria)
-            ->__set('nomeCategoria', $nomeCategoria);
+        $this->categorias->__set('nomeCategoria', $nomeCategoria);
 
         $objS = new CategoriasService($this->conn, $this->categorias);
         return $objS->registro();
@@ -49,11 +48,11 @@ class CategoriasController
         return $objS->buscaTodos();
     }
 
-    public function deletaCodigo($codigoCategoria)
+    public function remover($codigoCategoria)
     {
         $this->categorias->__set('codigoCategoria', $codigoCategoria);
         $objS = new CategoriasService($this->conn, $this->categorias);
-        return $objS->deletaCodigo();
+        return $objS->remover();
     }
 
 }

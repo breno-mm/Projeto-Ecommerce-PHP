@@ -68,6 +68,30 @@ modDev(true);
                                 <li><a class="dropdown-item mouse-click" onclick="ajaxopen('fornecedores/relatorio',{},'#corpo')">Relatórios</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Unidades
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('unidades/cadastro',{},'#corpo')">Cadastro</a></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('unidades/editar',{},'#corpo')">Alterar</a></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('unidades/remover',{},'#corpo')">Remover</a></li>
+                                <li><hr class="dropdown-divider "></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('unidades/relatorio',{},'#corpo')">Relatórios</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categorias
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('categorias/cadastro',{},'#corpo')">Cadastro</a></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('categorias/editar',{},'#corpo')">Alterar</a></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('categorias/remover',{},'#corpo')">Remover</a></li>
+                                <li><hr class="dropdown-divider "></li>
+                                <li><a class="dropdown-item mouse-click" onclick="ajaxopen('categorias/relatorio',{},'#corpo')">Relatórios</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>   
             </div>

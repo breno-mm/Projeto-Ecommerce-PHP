@@ -1,9 +1,10 @@
 <?php
+//Para buscar fornecedores
 include_once("../../Config/conexao.php");
 include_once("../../Controller/Fornecedores-Controller.php");
 
-$fornecedorController = new FornecedoresController();
-$fornecedores = $fornecedorController->buscaTodos();
+$fornecedoresController = new FornecedoresController();
+$fornecedores = $fornecedoresController->buscaTodos();
 ?>
 
 <h5 class="card-title fw-semibold mb-4">Cadastro de Produto<h5>
