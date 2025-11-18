@@ -1,6 +1,6 @@
 <?php
 include "../Config/config.php";
-include_once(__DIR__."/../Controller/Produtos-Controller.php");
+include_once(__DIR__ . "/../Controller/Produtos-Controller.php");
 
 $produtosController = new ProdutosController();
 $produtos = $produtosController->buscaTodos();
@@ -18,6 +18,7 @@ modDev(true);
     <!--bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fbccb1ecd5.js" crossorigin="anonymous"></script>
 
     <link href="./assets/CSS/index.css" rel="stylesheet">
@@ -110,10 +111,17 @@ modDev(true);
                             </li>
 
                             <!-- LOGIN -->
-                            <li class="nav-item">
-                                <a class="btn btn-primary ms-2" href="?login">
-                                    <i class="bi bi-person"></i> Login
+                            <li class="nav-item dropdown">
+                                <a class="btn btn-primary ms-2 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    <i class="bi bi-person"></i>
                                 </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item mouse-click" onclick="ajaxopen('login', {}, '#corpo')">
+                                            <i class="bi bi-box-arrow-in-right"></i> Acessar conta
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                         </ul>
@@ -135,7 +143,8 @@ modDev(true);
                         <div class="card shadow-sm h-100">
 
                             <!-- FOTO -->
-                            <img src="uploads/produtos/<?= $p->foto ?>" class="card-img-top card-img-fixed" alt="<?= $p->nomeProduto ?>">
+                            <img src="uploads/produtos/<?= $p->foto ?>" class="card-img-top card-img-fixed"
+                                alt="<?= $p->nomeProduto ?>">
 
                             <div class="card-body d-flex flex-column">
 

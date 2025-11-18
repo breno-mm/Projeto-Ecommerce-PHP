@@ -1,22 +1,27 @@
 <?php
-require_once "../../Model/Clientes-Model.php";
-require_once "../../Service/Clientes-Service.php";
+require_once __DIR__ . "/../Model/Clientes-Model.php";
+require_once __DIR__ . "/../Service/Clientes-Service.php";
 
 
-class ClientesController{
+class ClientesController
+{
     private $conn;
     private $clientes;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = new Conexao();
         $this->conn = $this->conn->getinstance();
         $this->clientes = new Clientes();
-	}
+    }
 
 
-    public function registro($nomeCliente, $CPF, $telefoneFixo, $telefoneCelular, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP){
-        
+    public function registro($nomeCliente, $email, $senha, $CPF, $telefoneFixo, $telefoneCelular, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP)
+    {
+
         $this->clientes->__set('nomeCliente', $nomeCliente)
+            ->__set('email', $email)
+            ->__set('senha', $senha)
             ->__set('CPF', $CPF)
             ->__set('telefoneFixo', $telefoneFixo)
             ->__set('telefoneCelular', $telefoneCelular)
@@ -27,13 +32,14 @@ class ClientesController{
             ->__set('cidade', $cidade)
             ->__set('estado', $estado)
             ->__set('CEP', $CEP);
-        
+
         $objS = new ClientesService($this->conn, $this->clientes);
         return $objS->registro();
     }
 
-    public function atualiza($codigoCliente, $nomeCliente, $CPF, $telefoneFixo, $telefoneCelular, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP){
-        
+    public function atualiza($codigoCliente, $nomeCliente, $CPF, $telefoneFixo, $telefoneCelular, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP)
+    {
+
         $this->clientes->__set('codigoCliente', $codigoCliente)
             ->__set('nomeCliente', $nomeCliente)
             ->__set('CPF', $CPF)
@@ -46,25 +52,35 @@ class ClientesController{
             ->__set('cidade', $cidade)
             ->__set('estado', $estado)
             ->__set('CEP', $CEP);
-        
+
         $objS = new ClientesService($this->conn, $this->clientes);
         return $objS->atualiza();
     }
 
-    public function remover($codigoCliente){
+    public function remover($codigoCliente)
+    {
         $this->clientes->__set('codigoCliente', $codigoCliente);
         $objS = new ClientesService($this->conn, $this->clientes);
         return $objS->remover();
     }
 
-    public function buscaCodigo($codigoCliente){
+    public function buscaCodigo($codigoCliente)
+    {
         $this->clientes->__set('codigoCliente', $codigoCliente);
         $objS = new ClientesService($this->conn, $this->clientes);
         $tarefa = $objS->buscaCodigo();
         return $tarefa['0'];
     }
 
-    public function buscaTodos(){
+    public function buscaPorEmail($email)
+    {
+        $this->clientes->__set('email', $email);
+        $objS = new ClientesService($this->conn, $this->clientes);
+        return $objS->buscaPorEmail();
+    }
+
+    public function buscaTodos()
+    {
         $objS = new ClientesService($this->conn, $this->clientes);
         return $objS->buscaTodos();
     }

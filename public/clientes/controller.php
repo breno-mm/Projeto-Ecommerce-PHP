@@ -6,7 +6,7 @@ $tarefa = new ClientesController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST)) {
-        $tarefa->registro( $_POST['nomeCliente'], $_POST['CPF'], $_POST['telefoneFixo'], $_POST['telefoneCelular'], $_POST['logradouro'], $_POST['numero'], $_POST['complemento'], $_POST['bairro'], $_POST['cidade'], $_POST['estado'], $_POST['CEP']);
+        $tarefa->registro( $_POST['nomeCliente'], $_POST['email'], $_POST['senha'], $_POST['CPF'], $_POST['telefoneFixo'], $_POST['telefoneCelular'], $_POST['logradouro'], $_POST['numero'], $_POST['complemento'], $_POST['bairro'], $_POST['cidade'], $_POST['estado'], $_POST['CEP']);
 
         print "<div class=\"alert alert-success text-center \" role=\"alert\">Cadastro realizado com sucesso!!</div>";
 
