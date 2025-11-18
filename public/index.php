@@ -45,7 +45,7 @@ modDev(true);
                     <!-- MENU INTERNO -->
                     <div class="collapse navbar-collapse" id="navbarNav">
 
-                        <!-- CAMPO DE BUSCA CENTRAL -->
+                        <!-- CAMPO DE BUSCA -->
                         <form class="d-flex mx-auto w-50" role="search" action="?buscar" method="GET">
                             <input class="form-control me-2" type="search" name="q" placeholder="Buscar produtos..."
                                 aria-label="Search">
