@@ -17,19 +17,18 @@ class ProdutosService
     {
         $query = "
             INSERT INTO $this->table
-            (codigoProduto, nomeProduto, codigoFornecedor, foto, codigoUnidade, precoUnitario, codigoCategoria)
+            (nomeProduto, codigoFornecedor, foto, codigoUnidade, precoUnitario, codigoCategoria)
             VALUES
-            (?,?,?,?,?,?,?)
+            (?,?,?,?,?,?)
         ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(1, $this->produtos->__get("codigoProduto"));
-        $stmt->bindValue(2, $this->produtos->__get("nomeProduto"));
-        $stmt->bindValue(3, $this->produtos->__get("codigoFornecedor"));
-        $stmt->bindValue(4, $this->produtos->__get("foto"));
-        $stmt->bindValue(5, $this->produtos->__get("codigoUnidade"));
-        $stmt->bindValue(6, $this->produtos->__get("precoUnitario"));
-        $stmt->bindValue(7, $this->produtos->__get("codigoCategoria"));
+        $stmt->bindValue(1, $this->produtos->__get("nomeProduto"));
+        $stmt->bindValue(2, $this->produtos->__get("codigoFornecedor"));
+        $stmt->bindValue(3, $this->produtos->__get("foto"));
+        $stmt->bindValue(4, $this->produtos->__get("codigoUnidade"));
+        $stmt->bindValue(5, $this->produtos->__get("precoUnitario"));
+        $stmt->bindValue(6, $this->produtos->__get("codigoCategoria"));
         $stmt->execute();
 
         $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);

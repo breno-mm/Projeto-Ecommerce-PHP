@@ -4,6 +4,8 @@ class Clientes
 
     private $codigoCliente;
     private $nomeCliente;
+    private $email;
+    private $senha;
     private $CPF;
     private $telefoneFixo;
     private $telefoneCelula;

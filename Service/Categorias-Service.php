@@ -17,7 +17,7 @@ class CategoriasService
     {
         $query = "
             INSERT INTO $this->table
-            (codigoCategoria, nomeCategoria)
+            (nomeCategoria)
             VALUES
             (?)
         ";

@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__."/../Model/Categorias-Model.php");
-require_once(__DIR__."/../Service/Catetegorias-Service.php");
+require_once(__DIR__. "/../Model/Categorias-Model.php");
+require_once(__DIR__. "/../Service/Categorias-Service.php");
 
 
 class CategoriasController
@@ -42,7 +42,7 @@ class CategoriasController
         return $tarefa['0'];
     }
 
-    public function buscaTodas()
+    public function buscaTodos()
     {
         $objS = new CategoriasService($this->conn, $this->categorias);
         return $objS->buscaTodos();

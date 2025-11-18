@@ -2,7 +2,7 @@
 include_once("controller.php");
 ?>
 <div class="card-body">
-    <h5 class="card-title fw-semibold mb-4">Relatório de Clientes</h5>
+    <h5 class="card-title fw-semibold mb-4">Relatório de Produtos</h5>
     <div class="input-group mb-3">
         <input type="search" id="mySearch" name="mySearch" class="form-control" placeholder="Localizar" aria-label="Localizar" enterkeyhint="btsearch" aria-describedby="button-addon2">
         <button onclick="search(document.getElementById('mySearch').value)" class="btn btn-outline-secondary mouse-pointer" type="button" id="btsearch"><i class="fa-solid fa-magnifying-glass-plus"></i></button>

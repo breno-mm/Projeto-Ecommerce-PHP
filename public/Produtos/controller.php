@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($_POST)) {
-        $tarefa->registro( $_POST['nomeProduto'], $_POST['codigoFornecedor'], $_POST['codigoUnidade'], $_POST['precoUnitario'],  $_POST['codigoCategoria'], $nomeArquivo);
+        $tarefa->registro( $_POST['nomeProduto'], $_POST['codigoFornecedor'], $nomeArquivo,  $_POST['codigoUnidade'], 
+        $_POST['precoUnitario'],  $_POST['codigoCategoria']);
 
         print "<div class=\"alert alert-success text-center \" role=\"alert\">Cadastro realizado com sucesso!!</div>";
 
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         $tarefa->remover($dados_array['id']);
         print "<div class=\"alert alert-success text-center \" role=\"alert\">Remoção realizada com sucesso!!</div>";
     } else {
-        print "<div class=\"alert alert-danger text-center \" role=\"alert\">Cliente não encontrado!!</div>";
+        print "<div class=\"alert alert-danger text-center \" role=\"alert\">Produto não encontrado!!</div>";
     }
 
 }
