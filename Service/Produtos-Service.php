@@ -85,6 +85,19 @@ class ProdutosService
         return $restemp;
     }
 
+    //Busca por fornecedor
+    public function buscaPorFornecedor($codigoFornecedor)
+    {
+        $query = "
+        SELECT * FROM 
+            produtos 
+        WHERE 
+            codigoFornecedor = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$codigoFornecedor]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     //Busca todas as produtos
     public function buscaTodos()
     {

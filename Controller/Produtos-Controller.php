@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__."/../Model/Produtos-Model.php");
-require_once(__DIR__."/../Service/Produtos-Service.php");
+require_once(__DIR__ . "/../Model/Produtos-Model.php");
+require_once(__DIR__ . "/../Service/Produtos-Service.php");
 
 
 class ProdutosController
@@ -58,6 +58,13 @@ class ProdutosController
         $objS = new ProdutosService($this->conn, $this->produtos);
         $tarefa = $objS->buscaCodigo();
         return $tarefa['0'];
+    }
+
+    public function buscaPorFornecedor($codigoFornecedor)
+    {
+        $this->produtos->__set('codigoFornecedor', $codigoFornecedor);
+        $objS = new ProdutosService($this->conn, $this->produtos);
+        return $objS->buscaPorFornecedor($codigoFornecedor);
     }
 
     public function buscaTodos()

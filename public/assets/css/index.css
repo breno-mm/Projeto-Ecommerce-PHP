@@ -6,5 +6,5 @@
     height: 200px;        /* altura padronizada */
     object-fit: contain;    /* corta sem distorcer */
     width: 100%;          /* garante largura total */
-    border-bottom: 1px solid #eee; /* opcional: deixa mais elegante */
+    border-bottom: 1px solid #eee;
 }

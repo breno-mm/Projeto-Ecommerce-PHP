@@ -157,7 +157,6 @@ modDev(true);
                                         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
                                     <?php else: ?>
                                         <li><a class="dropdown-item" href="login.php">Acessar conta</a></li>
-                                        <li><a class="dropdown-item" href="cadastro.php">Criar conta</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
