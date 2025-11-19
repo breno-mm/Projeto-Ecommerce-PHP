@@ -66,6 +66,12 @@ class ProdutosController
         return $objS->buscaPorFornecedor($codigoFornecedor);
     }
 
+    public function buscaNome($nome){
+        $this->produtos->__set('nomeProduto', $nome);
+        $objS = new ProdutosService($this->conn, $this->produtos);
+        return $objS->buscaNome($nome);
+    }
+
     public function buscaTodos()
     {
         $objS = new ProdutosService($this->conn, $this->produtos);

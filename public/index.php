@@ -5,7 +5,7 @@ include_once(__DIR__ . "/../Controller/Produtos-Controller.php");
 $usuarioLogado = null;
 $tipoUsuario = null;
 
-//Identeifica se e cliente ou forncedor na sessao
+// Verifica sessão (cliente ou fornecedor)
 if (isset($_SESSION['cliente']) && is_array($_SESSION['cliente'])) {
     $usuarioLogado = $_SESSION['cliente'];
     $tipoUsuario = 'cliente';
@@ -30,197 +30,167 @@ modDev(true);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce</title>
-    <!--bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fbccb1ecd5.js" crossorigin="anonymous"></script>
-
-    <link href="./assets/CSS/index.css" rel="stylesheet">
+    <link href="./assets/css/index.css" rel="stylesheet">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-    <!-- Header -->
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 px-5">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 w-100">
-                <div class="container-fluid">
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-                    <!-- LOGO -->
-                    <a class="navbar-brand fw-bold" href="?home">
-                        <img src="./assets/image/icon_face.png" alt="Logo" width="35" height="35"
-                            class="d-inline-block align-text-top">
-                        E-Commerce
-                    </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
 
-                    <!-- Mobile button -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="?home">
+                <img src="./assets/image/icon_face.png" alt="Logo" width="35" height="35">
+                E-Commerce
+            </a>
 
-                    <!-- MENU INTERNO -->
-                    <div class="collapse navbar-collapse" id="navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                        <!-- CAMPO DE BUSCA -->
-                        <form class="d-flex mx-auto w-50" role="search" action="?buscar" method="GET">
-                            <input class="form-control me-2" type="search" name="q" placeholder="Buscar produtos..."
-                                aria-label="Search">
-                            <button class="btn btn-outline-primary" type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </form>
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-                        <!-- MENUS À DIREITA -->
-                        <ul class="navbar-nav ms-auto">
+                <form id="formBusca" class="d-flex mx-auto my-2 my-lg-0 w-50" role="search">
+                    <div class="input-group">
+                        <input id="campoBusca" class="form-control border-end-0" type="search"
+                            placeholder="O que você procura?">
+                        <button class="btn btn-outline-secondary border-start-0" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
 
-                            <!-- HOME -->
-                            <li class="nav-item">
-                                <a class="nav-link active" href="?home">Home</a>
-                            </li>
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
 
-                            <?php if ($tipoUsuario === 'fornecedor'): ?>
-                                <!-- PRODUTOS -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                        Produtos
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('produtos/cadastro',{},'#corpo')">Cadastro</a></li>
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('produtos/editar',{},'#corpo')">Alterar</a></li>
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('produtos/remover',{},'#corpo')">Remover</a></li>
-                                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="?home">Home</a>
+                    </li>
+
+                    <?php if ($tipoUsuario === 'fornecedor'): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Gerenciar</a>
+                            <ul class="dropdown-menu shadow">
+                                <li>
+                                    <h6 class="dropdown-header">Produtos</h6>
                                 </li>
-
-                                <!-- CATEGORIAS -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                        Categorias
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('categorias/cadastro',{},'#corpo')">Cadastro</a></li>
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('categorias/editar',{},'#corpo')">Alterar</a></li>
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('categorias/remover',{},'#corpo')">Remover</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item mouse-click"
-                                                onclick="ajaxopen('categorias/relatorio',{},'#corpo')">Relatórios</a></li>
-                                    </ul>
+                                <li><a class="dropdown-item mouse-click"
+                                        onclick="ajaxopen('produtos/cadastro',{},'#corpo')">Cadastrar</a></li>
+                                <li><a class="dropdown-item mouse-click"
+                                        onclick="ajaxopen('produtos/editar',{},'#corpo')">Alterar</a></li>
+                                <li><a class="dropdown-item mouse-click"
+                                        onclick="ajaxopen('produtos/remover',{},'#corpo')">Remover</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
                                 </li>
+                                <li>
+                                    <h6 class="dropdown-header">Categorias</h6>
+                                </li>
+                                <li><a class="dropdown-item mouse-click"
+                                        onclick="ajaxopen('categorias/cadastro',{},'#corpo')">Cadastrar</a></li>
+                                <li><a class="dropdown-item mouse-click"
+                                        onclick="ajaxopen('categorias/relatorio',{},'#corpo')">Relatório</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="?carrinho">
+                            <i class="bi bi-cart3 fs-5"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-outline-primary dropdown-toggle btn-sm ms-2" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <?= $logado ? htmlspecialchars(strtok($usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor'], " ")) : 'Entrar' ?>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <?php if ($logado): ?>
+                                <li class="px-3 py-1"><small class="text-muted">Olá,
+                                        <strong><?= $usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor'] ?></strong></small>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <?php if ($tipoUsuario === 'cliente'): ?>
+                                    <li><a class="dropdown-item" href="dashboard-cliente.php">Meu Painel</a></li>
+                                    <li><a class="dropdown-item mouse-click"
+                                            onclick="ajaxopen('clientes/editar-cliente',{},'#corpo')">Meus Dados</a></li>
+                                <?php else: ?>
+                                    <li><a class="dropdown-item" href="dashboard-fornecedor.php">Painel Fornecedor</a></li>
+                                <?php endif; ?>
+                                <li><a class="dropdown-item text-danger" href="logout.php">Sair</a></li>
+                            <?php else: ?>
+                                <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
+                                <li><a class="dropdown-item" href="cadastro.php">Criar conta</a></li>
                             <?php endif; ?>
-
-                            <!-- CARRINHO -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="?carrinho">
-                                    <i class="bi bi-cart3"></i> Carrinho
-                                </a>
-                            </li>
-
-                            <!-- LOGIN -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="loginMenu" role="button"
-                                    data-bs-toggle="dropdown">
-                                    <?php if ($logado): ?>
-                                        <?= htmlspecialchars($usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor']); ?>
-                                    <?php else: ?>
-                                        Login
-                                    <?php endif; ?>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <?php if ($logado): ?>
-                                        <li><span class="dropdown-item-text text-muted">
-                                                Logado como<br><strong>
-                                                    <?= htmlspecialchars($usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor']); ?>
-                                                </strong>
-                                            </span></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <?php if ($tipoUsuario === 'cliente'): ?>
-                                            <li><a class="dropdown-item" href="dashboard-cliente.php">Dashboard</a></li>
-                                            <li><a class="dropdown-item mouse-click"
-                                                    onclick="ajaxopen('clientes/editar-cliente',{},'#corpo')">Editar Perfil</a>
-                                            </li>
-                                        <?php else: ?>
-                                            <li><a class="dropdown-item" href="dashboard-fornecedor.php">Dashboard</a></li>
-                                            <li><a class="dropdown-item mouse-click"
-                                                    onclick="ajaxopen('Produtos/relatorio',{},'#corpo')">Meus Produtos</a></li>
-                                        <?php endif; ?>
-                                        <li><a class="dropdown-item" href="logout.php">Sair</a></li>
-                                    <?php else: ?>
-                                        <li><a class="dropdown-item mouse-click" href="login.php">Acessar conta</a></li>
-                                    <?php endif; ?>
-                                </ul>
-                            </li>
-
                         </ul>
-                    </div>
-                </div>
-            </nav>
-
-    </div>
-
-    <!-- Body da APP -->
-    <div id="corpo" class="container flex-grow-1">
-        <div class="container my-5">
-            <h2 class="mb-4">Produtos</h2>
-
-            <div class="row g-4">
-
-                <?php foreach ($produtos as $p): ?>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card shadow-sm h-100">
-
-                            <!-- FOTO -->
-                            <img src="uploads/produtos/<?= $p->foto ?>" class="card-img-top card-img-fixed"
-                                alt="<?= $p->nomeProduto ?>">
-
-                            <div class="card-body d-flex flex-column">
-
-                                <!-- NOME -->
-                                <h5 class="card-title"><?= $p->nomeProduto ?></h5>
-
-                                <!-- PREÇO -->
-                                <p class="card-text fs-5 text-success fw-bold">
-                                    R$ <?= number_format($p->precoUnitario, 2, ',', '.') ?>
-                                </p>
-
-                                <!-- BOTÃO VER MAIS -->
-                                <a href="#" class="btn btn-primary mt-auto">
-                                    Ver mais
-                                </a>
-
-                            </div>
-
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
+
+    <div class="bg-primary text-white py-4 mb-4 shadow-sm">
+        <div class="container">
+            <h1 class="fw-light">Bem-vindo à nossa loja!</h1>
+            <p class="lead mb-0">As melhores ofertas você encontra aqui.</p>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-copyright text-center text-white py-3" style="background-color: #004085;">
-        © <?= $_SESSION['version'] ?> Copyright: <a class="text-white"
-            href="https://rafaellfrasson.com.br/"><?= $_SESSION['copyright'] ?></a>
+    <div id="corpo" class="container flex-grow-1 mb-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold text-dark"><i class="bi bi-shop me-2"></i>Produtos em Destaque</h3>
+        </div>
+
+        <div class="row g-4">
+            <?php foreach ($produtos as $p): ?>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card card-produto h-100 border-0 shadow-sm">
+
+                        <img src="uploads/produtos/<?= $p->foto ?>" class="img-produto card-img-top"
+                            alt="<?= $p->nomeProduto ?>">
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fs-6 fw-bold text-truncate"><?= $p->nomeProduto ?></h5>
+
+                            <div class="mt-auto">
+                                <p class="card-text fs-4 text-primary fw-bold mb-2">
+                                    R$ <?= number_format($p->precoUnitario, 2, ',', '.') ?>
+                                </p>
+                                <a href="#" class="btn btn-primary w-100 rounded-pill">
+                                    <i class="bi bi-bag-plus me-1"></i> Comprar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-1">&copy; <?= date('Y') ?> <strong>E-Commerce</strong>. Todos os direitos reservados.</p>
+            <small class="text-white-50">Versão <?= $_SESSION['version'] ?? '1.0' ?></small>
+        </div>
     </footer>
-    <!-- Bootstrp scrip -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <!--JQuery -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
-    <!-- func Ajax pré-configuradas -->
-    <script src="./assets/js/ajaxpg.js"></script>
-</body>
+    <script src="/assets/js/ajaxpg.js"></script>
+    <script>
+        $(document).ready(function() {
+            //busca 
+            configurarBusca('#formBusca', '#campoBusca', 'produtos/buscar.php', '#corpo');
+        });
+    </script>
 </body>
 
 </html>

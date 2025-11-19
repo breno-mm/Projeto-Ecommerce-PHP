@@ -96,6 +96,21 @@ class ProdutosService
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function buscaNome($nome)
+    {
+        $query = "
+        SELECT * FROM 
+            $this->table 
+        WHERE 
+            nomeProduto LIKE ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(1, "%$nome%"); //buscar em qualquer parte do nome
+        $stmt->execute();
+        $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $stmt = null;
+        return $restemp;
+    }
+
     //Busca todas as produtos
     public function buscaTodos()
     {

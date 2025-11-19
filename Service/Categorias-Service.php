@@ -90,16 +90,34 @@ class CategoriasService
     //Deleta categoria atraves do codigo
     public function remover()
     {
-        $query = "
-            DELETE FROM $this->table
-            WHERE
-                codigoCategoria = ?";
+        //Checa se existem produtos usando esta categoria
+        $queryCheck = "
+        SELECT 
+            count(*) as total 
+        FROM 
+            Produtos 
+        WHERE 
+            codigoCategoria = ?";
+        $stmtCheck = $this->conn->prepare($queryCheck);
+        $stmtCheck->bindValue(1, $this->categorias->__get('codigoCategoria'));
+        $stmtCheck->execute();
+        $resultado = $stmtCheck->fetch(PDO::FETCH_OBJ);
 
+        // Verifica se tem produto com a categoria
+        if ($resultado->total > 0) {
+            return "vinculado";
+        }
+
+        // Se nao tem vinculos  delete normal
+        $query = "
+        DELETE FROM 
+            $this->table 
+        WHERE 
+            codigoCategoria = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $this->categorias->__get('codigoCategoria'));
         $stmt->execute();
-        $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $stmt = null;
-        return $restemp;
+
+        return "sucesso";
     }
 }

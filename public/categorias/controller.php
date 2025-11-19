@@ -16,16 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-
+    
     $dados_brutos = file_get_contents('php://input');
     parse_str($dados_brutos, $dados_array);
+    
     if (isset($dados_array['id'])) {
-        $tarefa->remover($dados_array['id']);
-        print "<div class=\"alert alert-success text-center \" role=\"alert\">Remoção realizada com sucesso!!</div>";
-    } else {
-        print "<div class=\"alert alert-danger text-center \" role=\"alert\">Categoria não encontrado!!</div>";
-    }
+        $status = $tarefa->remover($dados_array['id']);
 
+        if ($status == "vinculado") {
+            // Mensagem de ERRO
+            print "<div class=\"alert alert-warning text-center\" role=\"alert\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Não é possível excluir! Existem produtos vinculados a esta categoria.</div>";
+        } else {
+            // Mensagem de SUCESSO
+            print "<div class=\"alert alert-success text-center\" role=\"alert\">Remoção realizada com sucesso!!</div>";
+        }
+
+    } else {
+        print "<div class=\"alert alert-danger text-center\" role=\"alert\">Categoria não encontrada!!</div>";
+    }
 }
 
 

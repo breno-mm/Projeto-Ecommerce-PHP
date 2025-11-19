@@ -1,10 +1,33 @@
-.mouse-click{
+.mouse-click {
     cursor: pointer;
 }
 
 .card-img-fixed {
-    height: 200px;        /* altura padronizada */
-    object-fit: contain;    /* corta sem distorcer */
-    width: 100%;          /* garante largura total */
+    height: 200px;
+    /* altura padronizada */
+    object-fit: contain;
+    /* corta sem distorcer */
+    width: 100%;
+    /* garante largura total */
     border-bottom: 1px solid #eee;
+}
+
+.card-produto {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.img-produto {
+    height: 200px;
+    object-fit: contain;
+    /* Evita distorção da imagem */
+    padding: 10px;
+}
+
+.navbar-brand img {
+    margin-right: 8px;
 }
