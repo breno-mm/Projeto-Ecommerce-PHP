@@ -1,7 +1,22 @@
 <?php
 include "../Config/config.php";
-include_once(__DIR__."/../Controller/Produtos-Controller.php");
+include_once(__DIR__ . "/../Controller/Produtos-Controller.php");
 
+$usuarioLogado = null;
+$tipoUsuario = null;
+
+//Identeifica se e cliente ou forncedor na sessao
+if (isset($_SESSION['cliente']) && is_array($_SESSION['cliente'])) {
+    $usuarioLogado = $_SESSION['cliente'];
+    $tipoUsuario = 'cliente';
+} elseif (isset($_SESSION['fornecedor']) && is_array($_SESSION['fornecedor'])) {
+    $usuarioLogado = $_SESSION['fornecedor'];
+    $tipoUsuario = 'fornecedor';
+}
+
+$logado = !empty($usuarioLogado);
+
+// Buscar produtos
 $produtosController = new ProdutosController();
 $produtos = $produtosController->buscaTodos();
 
@@ -18,6 +33,7 @@ modDev(true);
     <!--bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fbccb1ecd5.js" crossorigin="anonymous"></script>
 
     <link href="./assets/CSS/index.css" rel="stylesheet">
@@ -45,7 +61,7 @@ modDev(true);
                     <!-- MENU INTERNO -->
                     <div class="collapse navbar-collapse" id="navbarNav">
 
-                        <!-- CAMPO DE BUSCA CENTRAL -->
+                        <!-- CAMPO DE BUSCA -->
                         <form class="d-flex mx-auto w-50" role="search" action="?buscar" method="GET">
                             <input class="form-control me-2" type="search" name="q" placeholder="Buscar produtos..."
                                 aria-label="Search">
@@ -110,10 +126,38 @@ modDev(true);
                             </li>
 
                             <!-- LOGIN -->
-                            <li class="nav-item">
-                                <a class="btn btn-primary ms-2" href="?login">
-                                    <i class="bi bi-person"></i> Login
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="loginMenu" role="button"
+                                    data-bs-toggle="dropdown">
+                                    <?php if ($logado): ?>
+                                        <?= htmlspecialchars($usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor']); ?>
+                                    <?php else: ?>
+                                        Login
+                                    <?php endif; ?>
                                 </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <?php if ($logado): ?>
+                                        <li><span class="dropdown-item-text text-muted">
+                                                Logado como<br><strong>
+                                                    <?= htmlspecialchars($usuarioLogado['nomeCliente'] ?? $usuarioLogado['nomeFornecedor']); ?>
+                                                </strong>
+                                            </span></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <?php if ($tipoUsuario === 'cliente'): ?>
+                                            <li><a class="dropdown-item" href="dashboard-cliente.php">Dashboard</a></li>
+                                        <?php else: ?>
+                                            <li><a class="dropdown-item" href="dashboard-fornecedor.php">Dashboard</a></li>
+                                            <li><a class="dropdown-item mouse-click" onclick="ajaxopen('Produtos/relatorio',{},'#corpo')">Meus Produtos</a></li>
+                                        <?php endif; ?>
+                                        <li><a class="dropdown-item" href="logout.php">Sair</a></li>
+                                    <?php else: ?>
+                                        <li><a class="dropdown-item" href="login.php">Acessar conta</a></li>
+                                        <li><a class="dropdown-item" href="cadastro.php">Criar conta</a></li>
+                                    <?php endif; ?>
+                                </ul>
                             </li>
 
                         </ul>
@@ -135,7 +179,8 @@ modDev(true);
                         <div class="card shadow-sm h-100">
 
                             <!-- FOTO -->
-                            <img src="uploads/produtos/<?= $p->foto ?>" class="card-img-top card-img-fixed" alt="<?= $p->nomeProduto ?>">
+                            <img src="uploads/produtos/<?= $p->foto ?>" class="card-img-top card-img-fixed"
+                                alt="<?= $p->nomeProduto ?>">
 
                             <div class="card-body d-flex flex-column">
 

@@ -14,11 +14,13 @@ class FornecedoresController
         $this->fornecedores = new Fornecedores();
     }
 
-    public function registro($nomeFornecedor, $CNPJ, $fax, $telefoneFixo, $telefoneCelular, $site, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP)
+    public function registro($nomeFornecedor, $CNPJ, $email, $senha, $fax, $telefoneFixo, $telefoneCelular, $site, $logradouro, $numero, $complemento, $bairro, $cidade, $estado, $CEP)
     {
 
         $this->fornecedores->__set('nomeFornecedor', $nomeFornecedor)
             ->__set('CNPJ', $CNPJ)
+            ->__set('email', $email)
+            ->__set('senha', $senha)
             ->__set('fax', $fax)
             ->__set('telefoneFixo', $telefoneFixo)
             ->__set('telefoneCelular', $telefoneCelular)
@@ -69,6 +71,13 @@ class FornecedoresController
         $objS = new FornecedoresService($this->conn, $this->fornecedores);
         $tarefa = $objS->buscaCodigo();
         return $tarefa['0'];
+    }
+
+    public function buscaPorEmail($email)
+    {
+        $this->fornecedores->__set('email', $email);
+        $objS = new FornecedoresService($this->conn, $this->fornecedores);
+        return $objS->buscaPorEmail();
     }
 
     public function buscaTodos()

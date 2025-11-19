@@ -1,46 +1,44 @@
-<?php 
-session_set_cookie_params(['lifetime' => 0, 'httponly' => true]);
+<?php
 
 $seconds = 14400;
 
-if (!isset($_SESSION)) {
+// Só define parâmetros se a sessão ainda NÃO estiver ativa
+if (session_status() !== PHP_SESSION_ACTIVE) {
+
+    session_set_cookie_params([
+        'lifetime' => $seconds,
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => false, 
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
     session_start();
-    $time = "";
-    if ($seconds != 0) 
-        $time = time();     
-    
-    setcookie(session_name(), session_id(), $time + $seconds);
 
 } else {
-    $cookieParams = session_get_cookie_params();
-    session_set_cookie_params(
-        $seconds,
-        $cookieParams['path'],
-        $cookieParams['domain'],
-        $cookieParams['secure']
-    );
+    // Sessão já ativa → Não pode alterar cookie
+    // Apenas continua silenciosamente
 }
 
+
+// Função modo dev
 function modDev($var){
-    
-    $newid = session_create_id('dsbd-');
-    if($var){
-        //Modo desenvolvimento
-        ini_set('display_errors', 1); 
+    if ($var) {
+        ini_set('display_errors', 1);
         error_reporting(E_ALL);
-        
-    }else{
-        //Habilita 1 desabilita 0.
-        ini_set('display_errors', 0); 
-        error_reporting(~E_ALL);
+    } else {
+        ini_set('display_errors', 0);
+        error_reporting(0);
     }
 }
 
 
-// Versão do sistema
+// Versão
 $_SESSION['version'] = "2025.00.01 - ALPHA";
 
 // Copyright
 $_SESSION['copyright'] = "Rafael Leonardo Frasson";
 
+// Conexão com banco
 include "../Config/conexao.php";

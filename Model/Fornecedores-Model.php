@@ -5,6 +5,8 @@ class Fornecedores
 
     private $codigoFornecedor;
     private $nomeFornecedor;
+    private $email;
+    private $senha;
     private $CNPJ;
     private $fax;
     private $telefoneFixo;

@@ -8,7 +8,7 @@ class Clientes
     private $senha;
     private $CPF;
     private $telefoneFixo;
-    private $telefoneCelula;
+    private $telefoneCelular;
     private $logradouro;
     private $numero;
     private $complemento;

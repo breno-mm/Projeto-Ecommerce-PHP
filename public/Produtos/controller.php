@@ -6,9 +6,7 @@ $tarefa = new ProdutosController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // ------------------------------
-    // PROCESSAMENTO DE UPLOAD DE IMAGEM
-    // ------------------------------
+    //Upload de imagem
     $nomeArquivo = null;
 
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
@@ -16,16 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
         $nomeArquivo = uniqid() . "." . $ext;
 
-        // Local onde imagem fica salvo
+        //Local onde imagem fica salvo
         $destino = __DIR__ . "/../../public/uploads/produtos/" . $nomeArquivo;
 
-        // move arquivo
+        //move arquivo
         move_uploaded_file($_FILES['foto']['tmp_name'], $destino);
     }
 
     if (!empty($_POST)) {
-        $tarefa->registro( $_POST['nomeProduto'], $_POST['codigoFornecedor'], $nomeArquivo,  $_POST['codigoUnidade'], 
-        $_POST['precoUnitario'],  $_POST['codigoCategoria']);
+        $tarefa->registro(
+            $_POST['nomeProduto'],
+            $_POST['codigoFornecedor'],
+            $nomeArquivo,
+            $_POST['codigoUnidade'],
+            $_POST['precoUnitario'],
+            $_POST['codigoCategoria']
+        );
 
         print "<div class=\"alert alert-success text-center \" role=\"alert\">Cadastro realizado com sucesso!!</div>";
 
