@@ -50,11 +50,11 @@ class ItensPedidoController
         return $objS->buscaTodos();
     }
 
-    public function deletaCodigo($codigoPedido)
+    public function remover($codigoPedido)
     {
         $this->itensPedido->__set('codigoPedido', $codigoPedido);
         $objS = new ItensPedidoService($this->conn, $this->itensPedido);
-        return $objS->deletaCodigo();
+        return $objS->remover();
     }
 
 }

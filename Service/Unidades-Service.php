@@ -41,7 +41,7 @@ class UnidadesService
                 codigoUnidade = ?;
         ";
 
-        $stmt = $this->conn->prepare($query);    
+        $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $this->unidades->__get('descricaoUnidade'));
         $stmt->bindValue(2, $this->unidades->__get('codigoUnidade'));
         $stmt->execute();
@@ -91,16 +91,32 @@ class UnidadesService
     //Deleta categoria atraves do codigo
     public function remover()
     {
+        // 1. VERIFICAÇÃO: Checa se existem produtos usando esta unidade
         $query = "
-            DELETE FROM $this->table
-            WHERE
-                codigoUnidade= ?";
-
+            SELECT 
+                count(*) as total 
+            FROM 
+                Produtos
+            WHERE 
+                codigoUnidade = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
         $stmt->bindValue(1, $this->unidades->__get('codigoUnidade'));
-        $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $stmt = null;
-        return $restemp;
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if ($resultado->total > 0) {
+            return "vinculado";
+        }
+
+        $query = "
+            DELETE FROM 
+                $this->table 
+            WHERE 
+                codigoUnidade = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(1, $this->unidades->__get('codigoUnidade'));
+        $stmt->execute();
+
+        return "sucesso";
     }
 }

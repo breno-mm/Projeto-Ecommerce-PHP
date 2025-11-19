@@ -1,6 +1,7 @@
 <?php
-require_once(__DIR__ . "/../Model/Produtos-Model.php");
-require_once(__DIR__ . "/../Service/Produtos-Service.php");
+require_once __DIR__ . "/../Config/conexao.php";
+require_once __DIR__ . "/../Model/Produtos-Model.php";
+require_once __DIR__ . "/../Service/Produtos-Service.php";
 
 
 class ProdutosController

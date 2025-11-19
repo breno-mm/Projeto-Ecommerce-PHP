@@ -4,11 +4,8 @@
 
 .card-img-fixed {
     height: 200px;
-    /* altura padronizada */
     object-fit: contain;
-    /* corta sem distorcer */
     width: 100%;
-    /* garante largura total */
     border-bottom: 1px solid #eee;
 }
 
@@ -30,4 +27,29 @@
 
 .navbar-brand img {
     margin-right: 8px;
+}
+
+.card-produto {
+    transition: transform 0.2s;
+}
+
+.card-produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.img-produto {
+    height: 200px;
+    object-fit: contain;
+    padding: 10px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#corpo {
+    flex: 1;
 }

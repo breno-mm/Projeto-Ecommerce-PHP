@@ -79,7 +79,7 @@ class PedidosService
     }
 
     //Busca todas as pedidos
-    public function buscaTodas()
+    public function buscaTodos()
     {
         $query = "
 			SELECT
@@ -95,7 +95,7 @@ class PedidosService
     }
 
     //Deleta categoria atraves do codigo
-    public function deletaCodigo()
+    public function remover()
     {
         $query = "
             DELETE FROM $this->table

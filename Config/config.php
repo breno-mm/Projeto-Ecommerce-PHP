@@ -1,7 +1,5 @@
 <?php
-
 $seconds = 14400;
-
 // Só define parâmetros se a sessão ainda NÃO estiver ativa
 if (session_status() !== PHP_SESSION_ACTIVE) {
 

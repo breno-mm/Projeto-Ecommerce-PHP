@@ -73,3 +73,28 @@ function configurarBusca(formId, inputId, urlAction, targetId) {
         });
     });
 }
+
+function adicionarAoCarrinho(idProduto) {
+    console.log("Tentando adicionar produto ID: " + idProduto); // Debug no Console
+
+    $.ajax({
+        url: 'carrinho/adicionar.php', // O caminho relativo a partir do index.php
+        type: 'POST',
+        data: { id: idProduto },
+        success: function(response) {
+            var resp = response.trim(); // Remove espaços extras
+            console.log("Resposta do servidor: " + resp);
+
+            if(resp === "sucesso") {
+                // Redireciona para a visualização do carrinho
+                window.location.href = '?carrinho';
+            } else {
+                alert("Erro ao adicionar! O servidor respondeu: " + resp);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr);
+            alert("Erro de comunicação com o servidor: " + status);
+        }
+    });
+}

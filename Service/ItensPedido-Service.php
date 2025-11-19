@@ -19,7 +19,7 @@ class ItensPedidoService
             INSERT INTO $this->table
             (codigoPedido, codigoProduto, quantidade)
             VALUES
-            (?,?)
+            (?,?,?)
         ";
 
         $stmt = $this->conn->prepare($query);
@@ -92,7 +92,7 @@ class ItensPedidoService
     }
 
     //Deleta categoria atraves do codigo
-    public function deletaCodigo()
+    public function remover()
     {
         $query = "
             DELETE FROM $this->table

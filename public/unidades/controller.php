@@ -16,16 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-
     $dados_brutos = file_get_contents('php://input');
     parse_str($dados_brutos, $dados_array);
+    
     if (isset($dados_array['id'])) {
-        $tarefa->remover($dados_array['id']);
-        print "<div class=\"alert alert-success text-center \" role=\"alert\">Remoção realizada com sucesso!!</div>";
-    } else {
-        print "<div class=\"alert alert-danger text-center \" role=\"alert\">Unidade não encontrado!!</div>";
-    }
+        $status = $tarefa->remover($dados_array['id']); // Recebe o status do service
 
+        if ($status == "vinculado") {
+            print "<div class=\"alert alert-warning text-center\" role=\"alert\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Não é possível excluir! Existem produtos usando esta unidade.</div>";
+        } else {
+            print "<div class=\"alert alert-success text-center\" role=\"alert\">Unidade removida com sucesso!!</div>";
+        }
+    } else {
+        print "<div class=\"alert alert-danger text-center\" role=\"alert\">Unidade não encontrada!!</div>";
+    }
 }
 
 
