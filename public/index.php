@@ -78,45 +78,42 @@ modDev(true);
                                 <a class="nav-link active" href="?home">Home</a>
                             </li>
 
-                            <!-- PRODUTOS -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                    Produtos
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('produtos/cadastro',{},'#corpo')">Cadastro</a></li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('produtos/editar',{},'#corpo')">Alterar</a></li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('produtos/remover',{},'#corpo')">Remover</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('produtos/relatorio',{},'#corpo')">Relatórios</a></li>
-                                </ul>
-                            </li>
+                            <?php if ($tipoUsuario === 'fornecedor'): ?>
+                                <!-- PRODUTOS -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                        Produtos
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('produtos/cadastro',{},'#corpo')">Cadastro</a></li>
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('produtos/editar',{},'#corpo')">Alterar</a></li>
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('produtos/remover',{},'#corpo')">Remover</a></li>
+                                    </ul>
+                                </li>
 
-                            <!-- CATEGORIAS -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                    Categorias
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('categorias/cadastro',{},'#corpo')">Cadastro</a></li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('categorias/editar',{},'#corpo')">Alterar</a></li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('categorias/remover',{},'#corpo')">Remover</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('categorias/relatorio',{},'#corpo')">Relatórios</a></li>
-                                </ul>
-                            </li>
+                                <!-- CATEGORIAS -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                        Categorias
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('categorias/cadastro',{},'#corpo')">Cadastro</a></li>
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('categorias/editar',{},'#corpo')">Alterar</a></li>
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('categorias/remover',{},'#corpo')">Remover</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item mouse-click"
+                                                onclick="ajaxopen('categorias/relatorio',{},'#corpo')">Relatórios</a></li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
 
                             <!-- CARRINHO -->
                             <li class="nav-item">
@@ -149,14 +146,16 @@ modDev(true);
                                         <?php if ($tipoUsuario === 'cliente'): ?>
                                             <li><a class="dropdown-item" href="dashboard-cliente.php">Dashboard</a></li>
                                             <li><a class="dropdown-item mouse-click"
-                                            onclick="ajaxopen('clientes/editar-cliente',{},'#corpo')">Editar Perfil</a></li>
+                                                    onclick="ajaxopen('clientes/editar-cliente',{},'#corpo')">Editar Perfil</a>
+                                            </li>
                                         <?php else: ?>
                                             <li><a class="dropdown-item" href="dashboard-fornecedor.php">Dashboard</a></li>
-                                            <li><a class="dropdown-item mouse-click" onclick="ajaxopen('Produtos/relatorio',{},'#corpo')">Meus Produtos</a></li>
+                                            <li><a class="dropdown-item mouse-click"
+                                                    onclick="ajaxopen('Produtos/relatorio',{},'#corpo')">Meus Produtos</a></li>
                                         <?php endif; ?>
                                         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
                                     <?php else: ?>
-                                        <li><a class="dropdown-item" href="login.php">Acessar conta</a></li>
+                                        <li><a class="dropdown-item mouse-click" href="login.php">Acessar conta</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>

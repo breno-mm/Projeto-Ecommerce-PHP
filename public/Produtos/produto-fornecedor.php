@@ -27,7 +27,6 @@ $cont = 1;
                 <th class="w-auto" scope="col">Nome</th>
                 <th scope="col">Preço</th>
                 <th scope="col">Foto</th>
-                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody id="listx">

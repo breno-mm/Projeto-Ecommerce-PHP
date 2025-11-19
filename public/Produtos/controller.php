@@ -56,11 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     $dados_brutos = file_get_contents('php://input');
     parse_str($dados_brutos, $dados_array);
-    if (isset($dados_array['codigoPorduto'])) {
-        $tarefa->atualiza($dados_array['codigoPorduto'], $dados_array['nomeProduto'], $dados_array['codigoFornecedor'], $dados_array['foto'], $dados_array['codigoUnidade'], $dados_array['precoUnitario'], $dados_array['codigoCategoria']);
-        print "<div class=\"alert alert-success text-center \" role=\"alert\">Ateração realizada com sucesso!!</div>";
+    if (isset($dados_array['codigoProduto'])) {
+        $tarefa->atualiza($dados_array['codigoProduto'], $dados_array['nomeProduto'], $dados_array['codigoFornecedor'], $dados_array['codigoUnidade'], $dados_array['precoUnitario'], $dados_array['codigoCategoria']);
+        print "Ateração realizada com sucesso!!";
     } else {
-        print "<div class=\"alert alert-danger text-center \" role=\"alert\">Cliente não encontrado!!</div>";
+        print "Produto não encontrado!!";
     }
 
 }

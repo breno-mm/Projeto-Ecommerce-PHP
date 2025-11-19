@@ -2,7 +2,7 @@
 include_once("controller.php");
 ?>
 <div class="card-body">
-    <h5 class="card-title fw-semibold mb-4">Alterar Cliente</h5>
+    <h5 class="card-title fw-semibold mb-4">Alterar Produto</h5>
     <div class="input-group mb-3">
         <input type="search" id="mySearch" name="mySearch" class="form-control" placeholder="Localizar" aria-label="Localizar" enterkeyhint="btsearch" aria-describedby="button-addon2">
         <button onclick="search(document.getElementById('mySearch').value)" class="btn btn-outline-secondary mouse-pointer" type="button" id="btsearch"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
@@ -29,6 +29,6 @@ include_once("controller.php");
 </div>
 <script>
 function alterar(id){
-    ajaxopen('clientes/editar-cliente', {id: id} , '#corpo');
+    ajaxopen('./Produtos/editar-produto', {id: id} , '#corpo');
 }
 </script>

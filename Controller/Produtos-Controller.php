@@ -30,13 +30,12 @@ class ProdutosController
         return $objS->registro();
     }
 
-    public function atualiza($codigoProduto, $nomeProduto, $codigoFornecedor, $foto, $codigoUnidade, $precoUnitario, $codigoCategoria)
+    public function atualiza($codigoProduto, $nomeProduto, $codigoFornecedor, $codigoUnidade, $precoUnitario, $codigoCategoria)
     {
 
         $this->produtos->__set('codigoProduto', $codigoProduto)
             ->__set('nomeProduto', $nomeProduto)
             ->__set('codigoFornecedor', $codigoFornecedor)
-            ->__set('foto', $foto)
             ->__set('codigoUnidade', $codigoUnidade)
             ->__set('precoUnitario', $precoUnitario)
             ->__set('codigoCategoria', $codigoCategoria);

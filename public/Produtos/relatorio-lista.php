@@ -1,4 +1,4 @@
-<?php foreach ($res as $obj): ?>
+<?php foreach ($res as $obj): ?>    
 <tr>
     <th scope="row"><?= $cont ?></th>
     <td><?= htmlspecialchars($obj['nomeProduto'] ?? '') ?></td>
@@ -9,10 +9,6 @@
         <?php else: ?>
             <span class="text-muted">Sem foto</span>
         <?php endif; ?>
-    </td>
-    <td>
-        <a href="editar-produto.php?id=<?= $obj['codigoProduto'] ?>" class="btn btn-sm btn-warning">Editar</a>
-        <a href="remover-produto.php?id=<?= $obj['codigoProduto'] ?>" class="btn btn-sm btn-danger">Remover</a>
     </td>
 </tr>
 <?php $cont++; endforeach; ?>

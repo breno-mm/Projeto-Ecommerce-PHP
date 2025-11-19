@@ -42,10 +42,9 @@ class ProdutosService
             UPDATE $this->table SET
                 nomeProduto = ?,
                 codigoFornecedor = ?,
-                foto = ?,
                 codigoUnidade = ?,
                 precoUnitario = ?,
-                codigoCateogira = ?
+                codigoCategoria = ?
             WHERE
                 codigoProduto = ?;
         ";
@@ -53,11 +52,10 @@ class ProdutosService
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $this->produtos->__get("nomeProduto"));
         $stmt->bindValue(2, $this->produtos->__get("codigoFornecedor"));
-        $stmt->bindValue(3, $this->produtos->__get("foto"));
-        $stmt->bindValue(4, $this->produtos->__get("codigoUnidade"));
-        $stmt->bindValue(5, $this->produtos->__get("precoUnitario"));
-        $stmt->bindValue(6, $this->produtos->__get("codigoCategoria"));
-        $stmt->bindValue(7, $this->produtos->__get("codigoProduto"));
+        $stmt->bindValue(3, $this->produtos->__get("codigoUnidade"));
+        $stmt->bindValue(4, $this->produtos->__get("precoUnitario"));
+        $stmt->bindValue(5, $this->produtos->__get("codigoCategoria"));
+        $stmt->bindValue(6, $this->produtos->__get("codigoProduto"));
         $stmt->execute();
 
         $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -74,7 +72,7 @@ class ProdutosService
             FROM
                 $this->table
             WHERE
-                codigoProuto = ?";
+                codigoProduto = ?";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $this->produtos->__get('codigoProduto'));
@@ -114,19 +112,17 @@ class ProdutosService
         return $restemp;
     }
 
-    //Deleta categoria atraves do codigo
+    // Deleta produto através do código
     public function remover()
     {
-        $query = "
-            DELETE FROM $this->table
-            WHERE
-                codigoProduto = ?";
+        $query = "DELETE FROM $this->table WHERE codigoProduto = ?";
 
         $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(1, $this->produtos->__get('codigoProduto'), PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->bindValue(1, $this->produtos->__get('codigoProduto'));
-        $restemp = $stmt->fetchAll(PDO::FETCH_OBJ);
+
         $stmt = null;
-        return $restemp;
+
+        return true; // ou apenas retorne void
     }
 }

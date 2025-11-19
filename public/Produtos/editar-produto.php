@@ -1,100 +1,94 @@
 <?php
 include_once("controller.php");
-echo "<h5 class=\"card-title fw-semibold mb-4\">Alterar Cliente<h5>";
+
+// Buscar listas para os selects
+include_once("../../Controller/Fornecedores-Controller.php");
+include_once("../../Controller/Unidades-Controller.php");
+include_once("../../Controller/Categorias-Controller.php");
+
+$fornecedoresController = new FornecedoresController();
+$fornecedores = $fornecedoresController->buscaTodos();
+
+$unidadesController = new UnidadesController();
+$unidades = $unidadesController->buscaTodos();
+
+$categoriasController = new CategoriasController();
+$categorias = $categoriasController->buscaTodos();
+
+// Buscar produto
 $dados = $tarefa->buscaCodigo($_GET['id']);
 ?>
 
-<form id="formCliente" method="GET" enctype="multipart/form-data">
-  <input type="hidden" name="codigoCliente" id="codigoCliente" value="<?=$dados->codigoCliente?>">
+<h5 class="card-title fw-semibold mb-4">Alterar produto</h5>
+
+<form id="formProduto" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="codigoProduto" value="<?= $dados->codigoProduto ?>">
+
   <div class="mb-3">
-    <label for="nomeCliente" class="form-label">Nome</label>
-    <input type="input" class="form-control" value="<?=$dados->nomeCliente?>" id="nomeCliente" name="nomeCliente" aria-describedby="nomeAjuda">
-    <div id="nomeAjuda" class="form-text">Informe o nome completo do cliente.</div>
+    <label for="nomeProduto" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="nomeProduto" name="nomeProduto" value="<?= htmlspecialchars($dados->nomeProduto) ?>" required>
   </div>
 
   <div class="mb-3">
-    <label for="CPF" class="form-label">CPF</label>
-    <input type="input" class="form-control" value="<?=$dados->CPF?>" id="CPF" name="CPF" aria-describedby="CPFAjuda">
-    <div id="CPFAjuda" class="form-text">Informe o CPF com apenas números.</div>
-  </div>
-  
-  <div class="mb-3">
-    <label for="telefoneFixo" class="form-label">Telefone Fixo</label>
-    <input type="input" class="form-control" value="<?=$dados->telefoneFixo?>" id="telefoneFixo" name="telefoneFixo" aria-describedby="telefoneFixoAjuda">
-    <div/ id="telefoneFixoAjuda" class="form-text">Informe o telefone fixo, se não houve ignore.</div>
-  </div>
-  <div class="mb-3">
-    <label for="telefoneCelular" class="form-label">Celular</label>
-    <input type="input" class="form-control" value="<?=$dados->telefoneCelular?>" id="telefoneCelular" name="telefoneCelular" aria-describedby="telefoneCelulaAjuda">
-    <div id="telefoneCelulaAjuda" class="form-text">Informe o telefone celular.</div>
+    <label for="codigoFornecedor" class="form-label">Fornecedor</label>
+    <select name="codigoFornecedor" id="codigoFornecedor" class="form-control" required>
+      <option value="">Selecione um fornecedor</option>
+      <?php foreach ($fornecedores as $f): ?>
+        <option value="<?= $f->codigoFornecedor ?>" <?= ($dados->codigoFornecedor == $f->codigoFornecedor) ? 'selected' : '' ?>>
+          <?= htmlspecialchars($f->nomeFornecedor) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
   </div>
 
   <div class="mb-3">
-    <label for="logradouro" class="form-label">Logradouro</label>
-    <input type="input" class="form-control" value="<?=$dados->logradouro?>" id="logradouro" name="logradouro" aria-describedby="logradouroAjuda">
-    <div id="logradouroAjuda" class="form-text">Informe o Endereço.</div>
-  </div>
-  
-  <div class="mb-3">
-    <label for="numero" class="form-label">Número</label>
-    <input type="number" class="form-control" value="<?=$dados->numero?>" id="numero" name="numero" aria-describedby="numeroAjuda">
-    <div id="numeroAjuda" class="form-text">Informe o número.</div>
-  </div>
-  
-  <div class="mb-3">
-    <label for="complemento" class="form-label">Complemento</label>
-    <input type="input" class="form-control" value="<?=$dados->complemento?>" id="complemento" name="complemento" aria-describedby="complementoAjuda">
-    <div id="complementoAjuda" class="form-text">Informe o Endereço.</div>
+    <label for="codigoUnidade" class="form-label">Unidade</label>
+    <select name="codigoUnidade" id="codigoUnidade" class="form-control" required>
+      <option value="">Selecione uma unidade</option>
+      <?php foreach ($unidades as $u): ?>
+        <option value="<?= $u->codigoUnidade ?>" <?= ($dados->codigoUnidade == $u->codigoUnidade) ? 'selected' : '' ?>>
+          <?= htmlspecialchars($u->descricaoUnidade) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
   </div>
 
   <div class="mb-3">
-    <label for="bairro" class="form-label">Bairro</label>
-    <input type="input" class="form-control" value="<?=$dados->bairro?>" id="bairro" name="bairro" aria-describedby="bairroAjuda">
-    <div id="bairroAjuda" class="form-text">Informe o bairro.</div>
-  </div>
-  
-  <div class="mb-3">
-    <label for="cidade" class="form-label">Cidade</label>
-    <input type="input" class="form-control" value="<?=$dados->cidade?>" id="cidade" name="cidade" aria-describedby="cidadeAjuda">
-    <div id="cidadeAjuda" class="form-text">Informe o bairro.</div>
-  </div>
-
-  <div class="mb-3">
-    <label for="estado" class="form-label">Estado</label>
-    <input type="input" class="form-control" value="<?=$dados->estado?>" id="estado" name="estado" aria-describedby="estadoAjuda">
-    <div id="estadoAjuda" class="form-text">Informe o estado.</div>
+    <label for="codigoCategoria" class="form-label">Categoria</label>
+    <select name="codigoCategoria" id="codigoCategoria" class="form-control" required>
+      <option value="">Selecione a categoria</option>
+      <?php foreach ($categorias as $c): ?>
+        <option value="<?= $c->codigoCategoria ?>" <?= ($dados->codigoCategoria == $c->codigoCategoria) ? 'selected' : '' ?>>
+          <?= htmlspecialchars($c->nomeCategoria) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
   </div>
 
   <div class="mb-3">
-    <label for="CEP" class="form-label">CEP</label>
-    <input type="input" class="form-control" value="<?=$dados->CEP?>" id="CEP" name="CEP" aria-describedby="CEPAjuda">
-    <div id="CEPAjuda" class="form-text">Informe o CEP.</div>
+    <label for="precoUnitario" class="form-label">Preço do produto</label>
+    <input type="number" class="form-control" id="precoUnitario" name="precoUnitario" value="<?= htmlspecialchars($dados->precoUnitario) ?>" step="0.01" min="0" required>
   </div>
 
-  <button type="submit" class="btn btn-primary">Cadastrar</button>
+  <button type="submit" class="btn btn-primary">Atualizar</button>
 </form>
 
 <script>
-  $("form#formCliente").submit(function(e) {
-    
+$("form#formProduto").submit(function(e) {
     e.preventDefault();
-    
     var dados_serializados = $(this).serialize();
-    
+
     $.ajax({
-        url: "./clientes/controller.php",
+        url: "./Produtos/controller.php",
         type: "PUT",
         data: dados_serializados,
         contentType: 'application/x-www-form-urlencoded',
-        beforeSend: function () {
-                //Aqui adicionas o loader
-                $('#corpo').html("<div class=\"text-center\"><div class=\"spinner-border\" role=\"status\"></div><div class=\"spinner-grow text-danger\" role=\"status\"></div></div>");
-        },
         success: function(result){        
-            $('#corpo').html(result);
+            alert(result);
+            location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            $('#corpo').html(textStatus + errorThrown);
+            alert(textStatus + " " + errorThrown);
         }
     });
 });
