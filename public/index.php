@@ -148,6 +148,8 @@ modDev(true);
                                         </li>
                                         <?php if ($tipoUsuario === 'cliente'): ?>
                                             <li><a class="dropdown-item" href="dashboard-cliente.php">Dashboard</a></li>
+                                            <li><a class="dropdown-item mouse-click"
+                                            onclick="ajaxopen('clientes/editar-cliente',{},'#corpo')">Editar Perfil</a></li>
                                         <?php else: ?>
                                             <li><a class="dropdown-item" href="dashboard-fornecedor.php">Dashboard</a></li>
                                             <li><a class="dropdown-item mouse-click" onclick="ajaxopen('Produtos/relatorio',{},'#corpo')">Meus Produtos</a></li>

@@ -34,7 +34,7 @@ $codigo = $_SESSION['fornecedor']['codigoFornecedor'];
     <div class="container mt-4">
 
         <div class="alert alert-success">
-            👋 Bem-vindo(a), <strong><?= htmlspecialchars($nome) ?></strong>!
+            Bem-vindo(a), <strong><?= htmlspecialchars($nome) ?></strong>!
         </div>
 
         <div class="card shadow">

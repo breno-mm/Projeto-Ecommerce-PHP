@@ -1,6 +1,6 @@
 <?php
-include_once("../../Config/conexao.php");
-include_once("../../Controller/Clientes-Controller.php");
+include_once(__DIR__ . "/../../Config/conexao.php");
+include_once(__DIR__ . "/../../Controller/Clientes-Controller.php");
 
 $tarefa = new ClientesController();
 
